@@ -24,23 +24,30 @@ def do_check_in_or_out():
             print('I\'m sorry, I only understand "in" or "out". Please reply with "in" or "out."')
             checkinout = None
 
+# Let's clean up the redundancy with the floor and room checks.
+def get_room_and_floor():
+    # We're going to resume the best and assume a user inputs only numbers
+    floor = int(input('Which floor would you prefer?'))
+    room = int(input('Which room would you prefer?'))
+    # Return the floor and then the room.
+    # This will allow us to access them in the 0 and 1 index order
+    return floor, room
+
 status = do_check_in_or_out()
 
 if status == 'in':
-    # We're going to assume best case scenario for checkin.
-    # We'll check in one person, on an existing floor, into a new room.
-    floor = int(input('Which floor would you prefer?'))
-    room = int(input('Which room would you prefer?'))
-    # We're going to start with a single occupant
+    # Run the new function to get the room and floor choices
+    location = get_room_and_floor()
     occupant = input('What is your name?')
-    # Now add the room and occupant to the floor
+    # I'm going to purposely be verbose here.
+    # This could be simplified into hotel[location[0]][location[1]]
+    floor = location[0]
+    room = location[1]
     hotel[floor][room] = occupant
 elif status == 'out':
-    # We're going to assume best case scenario for checkout as well.
-    # There is some redundancy here that we'll fix later.
-    floor = int(input('What floor was your room on?'))
-    room = int(input('What is your room number?'))
+    location = get_room_and_floor()
+    floor = location[0]
+    room = location[1]
     del hotel[floor][room]
-
 
 print(hotel)
