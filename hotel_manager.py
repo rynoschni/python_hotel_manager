@@ -36,12 +36,20 @@ def is_room_empty(floor, room):
     return False
 
 def do_checkin(location):
-    occupant = input('What is your name?')
+    # Let's add multiple occupants
+    number_of_occupants = int(input("How many in your party? "))
+    # Create an empty list for the names
+    names = []
+    for occupant in range(number_of_occupants):
+        # Get each occupants names.
+        name = input("What is occupant #%d's name? " % (occupant + 1, ))
+        # Append it to the list.
+        names.append(name)
     if location[0] in hotel.keys():
-        hotel[location[0]][location[1]] = occupant
+        hotel[location[0]][location[1]] = names
     else:
         hotel[location[0]] = {}
-        hotel[location[0]][location[1]] = occupant
+        hotel[location[0]][location[1]] = names
     return True
 
 def do_checkout(location):
