@@ -11,7 +11,7 @@ hotel = {
 }
 
 # Let's move the check in and check out process into a function.
-def do_check_in_or_out():
+def start_check_in_or_out():
     # Default value is None
     checkinout = None
     # This loop will keep going until the user replies with "in" or "out."
@@ -33,21 +33,40 @@ def get_room_and_floor():
     # This will allow us to access them in the 0 and 1 index order
     return floor, room
 
-status = do_check_in_or_out()
+def do_checkin(location, people):
+    # Does the chosen floor exist?
+    # We can print the keys in the hotel dictionary to check.
+    print(hotel.keys())
+    if location[0] in hotel.keys():
+        # If it exists, check in the user
+        hotel[location[0]][location[1]] = occupant
+    else:
+        # If the floor doesn't exist we'll need to create it.
+        # This prevents KeyError problems.
+        hotel[location[0]] = {}
+        hotel[location[0]][location[1]] = occupant
+
+def do_checkout(location):
+    # Let's make sure we're checking out from a room a floor that exists
+    # At some point, we'll want to check the room exists too.
+    if location[0] in hotel.keys():
+        del hotel[location[0]][location[1]]
+    else:
+        print("That floor/room is not in this hotel.")
+    # Right now, this will end the program,
+    # we'll want to give the user a chance to go back and try a different room/floor
+
+
+status = start_check_in_or_out()
 
 if status == 'in':
     # Run the new function to get the room and floor choices
     location = get_room_and_floor()
     occupant = input('What is your name?')
-    # I'm going to purposely be verbose here.
-    # This could be simplified into hotel[location[0]][location[1]]
-    floor = location[0]
-    room = location[1]
-    hotel[floor][room] = occupant
+    do_checkin(location, occupant)
+
 elif status == 'out':
     location = get_room_and_floor()
-    floor = location[0]
-    room = location[1]
-    del hotel[floor][room]
+    do_checkout(location)
 
 print(hotel)
