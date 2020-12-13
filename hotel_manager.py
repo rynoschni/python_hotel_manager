@@ -10,11 +10,23 @@ hotel = {
   }
 }
 
-# We'll kick off with a simply "in" or "out" response, and we'll make sure to conver it to lower
-check_in_or_out = input("Are you checking in, or out?").lower()
+# Let's move the check in and check out process into a function.
+def do_check_in_or_out():
+    # Default value is None
+    checkinout = None
+    # This loop will keep going until the user replies with "in" or "out."
+    # This removes one of our potential issues.
+    while checkinout == None:
+        checkinout = input("Are you checking in, or out?").lower()
+        if checkinout == 'in' or checkinout == 'out':
+            return checkinout
+        else:
+            print('I\'m sorry, I only understand "in" or "out". Please reply with "in" or "out."')
+            checkinout = None
 
-# We'll start by assuming that a user always answers correctly. (Hint: They won't!)
-if check_in_or_out == 'in':
+status = do_check_in_or_out()
+
+if status == 'in':
     # We're going to assume best case scenario for checkin.
     # We'll check in one person, on an existing floor, into a new room.
     floor = int(input('Which floor would you prefer?'))
@@ -23,11 +35,12 @@ if check_in_or_out == 'in':
     occupant = input('What is your name?')
     # Now add the room and occupant to the floor
     hotel[floor][room] = occupant
-else:
+elif status == 'out':
     # We're going to assume best case scenario for checkout as well.
     # There is some redundancy here that we'll fix later.
     floor = int(input('What floor was your room on?'))
     room = int(input('What is your room number?'))
     del hotel[floor][room]
+
 
 print(hotel)
