@@ -35,16 +35,24 @@ def is_room_empty(floor, room):
         return True
     return False
 
-def do_checkin(location):
-    # Let's add multiple occupants
-    number_of_occupants = int(input("How many in your party? "))
-    # Create an empty list for the names
+def add_occupants():
     names = []
+    # Let's create a loop to let us check for how many occupants there are
+    number_of_occupants = None
+    while number_of_occupants == None:
+        number_of_occupants = int(input("How many in your party? "))
+        # If there are more than 6, let's kick the user back out.
+        if number_of_occupants > 6:
+            print("I'm sorry, we can only accomodate parties of 6 or less.")
+            number_of_occupants = None
+
     for occupant in range(number_of_occupants):
-        # Get each occupants names.
         name = input("What is occupant #%d's name? " % (occupant + 1, ))
-        # Append it to the list.
         names.append(name)
+    return names
+
+def do_checkin(location):
+    names = add_occupants()
     if location[0] in hotel.keys():
         hotel[location[0]][location[1]] = names
     else:
