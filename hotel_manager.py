@@ -37,11 +37,9 @@ def is_room_empty(floor, room):
 
 def add_occupants():
     names = []
-    # Let's create a loop to let us check for how many occupants there are
     number_of_occupants = None
     while number_of_occupants == None:
         number_of_occupants = int(input("How many in your party? "))
-        # If there are more than 6, let's kick the user back out.
         if number_of_occupants > 6:
             print("I'm sorry, we can only accomodate parties of 6 or less.")
             number_of_occupants = None
