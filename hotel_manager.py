@@ -20,6 +20,18 @@ def start_check_in_or_out():
             print('I\'m sorry, I only understand "in" or "out". Please reply with "in" or "out."')
             checkinout = None
 
+# alternate fix
+# def get_room_and_floor(in_or_out):
+#   if in_or_out == "in":
+#     floor = int(input('Which floor would you prefer? '))
+#     room = int(input('Which room would you prefer? '))
+    
+#   if in_or_out == "out":
+#     floor = int(input('Which floor where you on? '))
+#     room = int(input('What was your room number? '))
+    
+#     return floor, room
+
 def get_in_room_and_floor():
     floor = int(input('Which floor would you prefer? '))
     room = int(input('Which room would you prefer? '))
@@ -74,6 +86,7 @@ while run == True:
     if status == 'in':
         checked_in = False
         while checked_in == False:
+            #location = get_room_and_floor('in')
             location = get_in_room_and_floor()
             room_empty = is_room_empty(location[0], location[1])
             if room_empty == True:
@@ -85,6 +98,7 @@ while run == True:
     elif status == 'out':
         checked_out = False
         while checked_out == False:
+            #location = get_room_and_floor('out')
             location = get_out_room_and_floor()
             room_empty = is_room_empty(location[0], location[1])
             if room_empty == True:
