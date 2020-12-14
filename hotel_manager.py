@@ -13,16 +13,21 @@ hotel = {
 def start_check_in_or_out():
     checkinout = None
     while checkinout == None:
-        checkinout = input("Are you checking in, or out?").lower()
+        checkinout = input("Are you checking in, or out? ").lower()
         if checkinout == 'in' or checkinout == 'out':
             return checkinout
         else:
             print('I\'m sorry, I only understand "in" or "out". Please reply with "in" or "out."')
             checkinout = None
 
-def get_room_and_floor():
-    floor = int(input('Which floor would you prefer?'))
-    room = int(input('Which room would you prefer?'))
+def get_in_room_and_floor():
+    floor = int(input('Which floor would you prefer? '))
+    room = int(input('Which room would you prefer? '))
+    return floor, room
+
+def get_out_room_and_floor():
+    floor = int(input('Which floor where you on? '))
+    room = int(input('What was your room number? '))
     return floor, room
 
 def is_room_empty(floor, room):
@@ -69,7 +74,7 @@ while run == True:
     if status == 'in':
         checked_in = False
         while checked_in == False:
-            location = get_room_and_floor()
+            location = get_in_room_and_floor()
             room_empty = is_room_empty(location[0], location[1])
             if room_empty == True:
                 checked_in = do_checkin(location)
@@ -80,7 +85,7 @@ while run == True:
     elif status == 'out':
         checked_out = False
         while checked_out == False:
-            location = get_room_and_floor()
+            location = get_out_room_and_floor()
             room_empty = is_room_empty(location[0], location[1])
             if room_empty == True:
                 print("There isn't anyone in that room.")
